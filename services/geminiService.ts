@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Type, Modality } from "@google/genai";
 import { MODEL_NAMES } from "../constants";
 import { Lead, ImageGenerationConfig, AnalysisType } from "../types";
@@ -212,7 +213,17 @@ export const scoutTruckLead = async (file: File): Promise<Lead> => {
         }
     });
 
-    const json = JSON.parse(response.text || '{}');
+    let json: any = {};
+    try {
+        json = JSON.parse(response.text || '{}');
+    } catch (e) {
+        // Fallback in case of markdown block
+        const text = response.text || '';
+        const match = text.match(/```json\n([\s\S]*?)\n```/);
+        if (match) {
+            try { json = JSON.parse(match[1]); } catch(err) {}
+        }
+    }
     
     return {
         id: Date.now().toString(),
