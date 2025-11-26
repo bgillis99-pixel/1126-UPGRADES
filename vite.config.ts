@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     resolve: {
       alias: {
-        '@': path.resolve('./src'), // Standard alias, fallback to root if src doesn't exist
+        '@': path.resolve(__dirname), // Use current directory as root
       },
     },
     define: {
