@@ -1,90 +1,39 @@
-# 🚀 EMPLOYEE HANDBOOK: LAUNCH PROTOCOL
 
-**To:** New Operator
-**From:** Engineering Lead
-**Task:** Take "Mobile Carb Check" LIVE today.
+# 🚀 DEPLOYMENT GUIDE (FIXED)
 
-Follow these 3 phases exactly. Do not skip steps.
+**The Error You Saw:** `DEPLOYMENT_NOT_FOUND`
+**The Reason:** You likely clicked a temporary link that expired, or I guessed the wrong project name in the previous guide.
 
----
+### STEP 1: FIND YOUR ACTUAL LINK
+1. Go to your **[Vercel Dashboard](https://vercel.com/dashboard)**.
+2. Click on **YOUR** project (Whatever you named it).
+3. Look at the top left under your project name.
+4. You will see a button that says **Visit**.
+5. **CLICK THAT BUTTON.**
+   *   *Does it open the app?* -> **Great.** Copy that URL from the browser bar.
+   *   *Does it say 404?* -> You need to redeploy (see Step 2).
 
-## 📂 PHASE 1: SECURE THE CODE (GitHub)
-*We need to put the files in a safe cloud storage.*
+### STEP 2: IF THE APP IS BROKEN (REDEPLOY)
+1. In Vercel, go to the **Deployments** tab.
+2. If the top one is Red (Failed) or doesn't exist:
+   *   Go to your computer folder where these files are.
+   *   Make a small change (like adding a space to `README.md`) and save.
+   *   Go to GitHub Desktop (or web) and **Commit & Push** again.
+   *   Vercel will automatically start a new build.
 
-1.  **Download Files:** Make sure you have downloaded all the code files from this chat to a folder on your computer.
-2.  **Create Account:** Go to [GitHub.com/join](https://github.com/join) and create a free account.
-3.  **New Repo:** Click the **+** icon (top right) -> **New repository**.
-    *   **Name:** `mobile-carb-check`
-    *   **Visibility:** Public
-    *   Click **Create repository**.
-4.  **Upload:** Click the link that says **"uploading an existing file"**.
-    *   Select ALL your files (`App.tsx`, `index.html`, `package.json`, `vite.config.ts`, etc.).
-    *   Drag them into the window.
-    *   Click the green **Commit changes** button.
+### STEP 3: CONNECTING THE DOMAIN
+*If your link is `something-random.vercel.app` but you want `carbcleantruckcheck.app`*
 
----
+1. In Vercel, go to **Settings** -> **Domains**.
+2. Type `carbcleantruckcheck.app` and click Add.
+3. Vercel will give you a **Value** (usually `76.76.21.21`).
+4. Go to Squarespace -> Domains -> DNS.
+5. Delete the default Squarespace records.
+6. Add an **A Record**:
+   *   Host: `@`
+   *   Data: `76.76.21.21` (or whatever Vercel says).
+7. Add a **CNAME Record**:
+   *   Host: `www`
+   *   Data: `cname.vercel-dns.com`
 
-## ⚡ PHASE 2: IGNITE THE ENGINE (Vercel)
-*This turns the code into a working website.*
-
-1.  **Create Account:** Go to [Vercel.com/signup](https://vercel.com/signup).
-    *   Select **"Continue with GitHub"**.
-2.  **Import Project:**
-    *   On your dashboard, click **Add New...** -> **Project**.
-    *   You will see `mobile-carb-check` on the list. Click **Import**.
-3.  **⚠️ CRITICAL STEP (Do not miss this):**
-    *   Find the section called **"Environment Variables"** and expand it.
-    *   **Key:** `API_KEY`
-    *   **Value:** `AIzaSyBIVTK3aqKBA9JwtXBeGbpWEgMy4tPXmtk`
-    *   Click **Add**.
-4.  **Launch:** Click **Deploy**.
-    *   Wait ~1 minute. You will get a working link (e.g., `mobile-carb-check.vercel.app`).
-    *   **Test it.** Open that link on your phone. It should work perfectly.
-
----
-
-## 🌐 PHASE 3: CONNECT THE DOMAIN (Squarespace)
-*www.carbcleantruckcheck.app.*
-
-### Part A: Get the Destination (Vercel)
-1.  In your Vercel Project, go to **Settings** (top tab) -> **Domains** (left menu).
-2.  Type `carbcleantruckcheck.app` in the box.
-3.  Click **Add**.
-4.  Vercel will show an error (Invalid Configuration) and give you a number: **`76.76.21.21`**. Copy this.
-
-### Part B: Point the Signpost (Squarespace)
-1.  Log into [Squarespace Domains](https://account.squarespace.com/domains).
-2.  Click `carbcleantruckcheck.app`.
-3.  Click **DNS Settings** (sometimes called "Advanced DNS").
-4.  **🗑️ DELETE DEFAULTS:** Look for "Squarespace Defaults" at the bottom. **Delete them** (Trash Can icon). The app won't work if you keep them.
-5.  **Add Record 1 (The App):**
-    *   **Type:** `A`
-    *   **Host:** `@`
-    *   **Data:** `76.76.21.21`
-    *   Click **Save**.
-6.  **Add Record 2 (The WWW):**
-    *   **Type:** `CNAME`
-    *   **Host:** `www`
-    *   **Data:** `cname.vercel-dns.com`
-    *   Click **Save**.
-
----
-
-## ✅ PHASE 4: VERIFICATION
-1.  Go back to **Vercel Domains** settings.
-2.  It takes anywhere from **15 minutes to 24 hours** for the connection to turn Green.
-3.  Once it is Green, your app is live at `https://carbcleantruckcheck.app`.
-4.  **SSL is Automatic:** The "Secure" lock icon will appear automatically.
-
----
-
-## 🆘 TROUBLESHOOTING
-
-### Error: `404: NOT_FOUND Code: DEPLOYMENT_NOT_FOUND`
-**Good News:** This means your Squarespace DNS is working perfectly! It is pointing to Vercel.
-**The Problem:** Vercel doesn't know which project to display.
-**The Fix:**
-1.  Go to Vercel Dashboard -> Click your Project.
-2.  Click **Settings** -> **Domains**.
-3.  Type `carbcleantruckcheck.app` and click **Add**.
-4.  Refresh your phone. It should work immediately.
+**WAIT TIME:** It takes 1 hour to 24 hours for the domain to work. Until then, use the `.vercel.app` link.
