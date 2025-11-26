@@ -15,6 +15,9 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
   const [showRedirectModal, setShowRedirectModal] = useState(false);
   const [hasClickedLink, setHasClickedLink] = useState(false);
   
+  // Podcast State
+  const [isPlaying, setIsPlaying] = useState(false);
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleScan = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +49,9 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
 
   const hasInvalidChars = /[IOQ]/.test(inputVal);
 
-  const handleCheckClick = () => {
+  const handleCheckSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    
     const val = inputVal.trim().toUpperCase();
     
     if (val.includes('O')) return alert("⚠️ Invalid character: Letter 'O' (Oh) is not allowed. Use Number '0' (Zero).");
@@ -91,6 +96,14 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
     onFindTester(zipInput);
   };
 
+  const togglePodcast = () => {
+      setIsPlaying(!isPlaying);
+      // In a real app, this would toggle an <audio> element
+      if (!isPlaying) {
+          alert("Playing: 'Common Compliance Questions with NorCal Mobile'...");
+      }
+  };
+
   return (
     <div className="flex flex-col items-center w-full pb-10">
       
@@ -126,21 +139,26 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
             SCAN VIN TAG
         </button>
 
-        <div className="relative mb-2 group">
-            <div className="relative">
+        <form onSubmit={handleCheckSubmit} className="relative mb-2 group">
+            <div className="relative flex items-center">
                 <input
                     type="text"
                     value={inputVal}
                     onChange={handleInputChange}
-                    placeholder="Type VIN Here"
+                    placeholder="Or Type VIN..."
                     maxLength={17}
-                    className={`w-full p-5 text-2xl font-black text-center border-4 ${hasInvalidChars ? 'border-red-500 focus:ring-red-200' : 'border-[#003366] focus:ring-blue-100'} rounded-xl focus:outline-none focus:ring-4 transition-all font-mono uppercase tracking-widest text-[#003366] placeholder:text-gray-400 placeholder:text-xl placeholder:font-sans placeholder:font-bold placeholder:normal-case shadow-inner`}
+                    className={`w-full p-4 pr-16 text-2xl font-black text-center border-4 ${hasInvalidChars ? 'border-red-500 focus:ring-red-200' : 'border-[#003366] focus:ring-blue-100'} rounded-xl focus:outline-none focus:ring-4 transition-all font-mono uppercase tracking-widest text-[#003366] placeholder:text-gray-400 placeholder:text-xl placeholder:font-sans placeholder:font-bold placeholder:normal-case shadow-inner`}
                 />
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                    ✏️
-                </div>
+                
+                {/* INLINE SUBMIT BUTTON */}
+                <button 
+                    type="submit"
+                    className="absolute right-2 top-2 bottom-2 bg-[#15803d] text-white w-12 rounded-lg flex items-center justify-center shadow-md hover:bg-[#166534] active:scale-95 transition-all"
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </button>
             </div>
-        </div>
+        </form>
         
         {hasInvalidChars ? (
              <div className="bg-red-50 border border-red-200 rounded-lg p-2 mb-6 text-center animate-in fade-in slide-in-from-top-1">
@@ -152,20 +170,58 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
              </div>
         ) : (
             <p className="text-[10px] text-gray-500 mb-6 px-2 text-center leading-tight">
-                <span className="font-bold text-[#003366]">VIN RULES:</span> Never use letters <span className="font-bold text-red-500">I, O, Q</span>.<br/>
-                <span className="opacity-75">Common mistake: Typing 'O' instead of '0'.</span>
+                <span className="font-bold text-[#003366]">VIN RULES:</span> Never use letters <span className="font-bold text-red-500">I, O, Q</span>. Press <span className="font-bold text-[#15803d]">GO</span> to Check.
             </p>
         )}
 
-        <div className="space-y-3">
-          <button
-            onClick={handleCheckClick}
-            className="w-full p-4 text-lg font-bold text-white bg-[#003366] rounded-xl hover:bg-[#002244] transition-all shadow-md active:scale-[0.98] flex justify-center items-center gap-2 border-2 border-[#003366]"
-          >
-            CHECK STATUS
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" /></svg>
-          </button>
+        {/* MEDIA & RESOURCES SECTION */}
+        <div className="space-y-4 mb-6">
+            
+            {/* AUDIO PLAYER CARD */}
+            <div className="bg-[#003366] rounded-xl p-4 text-white shadow-lg relative overflow-hidden group">
+                <div className="relative z-10 flex items-center gap-4">
+                    <button onClick={togglePodcast} className="bg-[#15803d] w-12 h-12 rounded-full flex items-center justify-center shadow-md hover:bg-[#166534] transition-transform active:scale-95 flex-shrink-0">
+                        {isPlaying ? (
+                            <span className="text-xl">❚❚</span>
+                        ) : (
+                            <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        )}
+                    </button>
+                    <div className="text-left">
+                        <p className="text-[10px] font-bold text-gray-300 uppercase tracking-wider mb-0.5">COMPLIANCE PODCAST</p>
+                        <h4 className="font-bold text-sm leading-tight">Q&A with NorCal Mobile</h4>
+                        <p className="text-[10px] text-gray-400 mt-1">Ep. 1: Blocking, Fees & Timelines</p>
+                    </div>
+                </div>
+                {/* Visual Waveform Effect */}
+                <div className="absolute bottom-0 left-0 right-0 h-8 flex items-end justify-center gap-1 opacity-20 pointer-events-none px-4 pb-2">
+                    {[40,60,30,80,50,90,40,70,30,50,80,40,60,30].map((h, i) => (
+                        <div key={i} className={`w-1.5 bg-white rounded-t-sm transition-all duration-300 ${isPlaying ? 'animate-pulse' : ''}`} style={{height: `${h}%`}}></div>
+                    ))}
+                </div>
+            </div>
 
+            {/* BLOG LINKS */}
+            <div className="bg-white border border-gray-100 rounded-xl p-4 text-left shadow-sm">
+                 <h4 className="font-bold text-[#003366] text-sm mb-3 flex items-center gap-2">
+                    <span className="bg-blue-50 p-1 rounded">📰</span> Latest Updates
+                 </h4>
+                 <div className="space-y-3">
+                     <a href="https://norcalcarbmobile.com/blog" target="_blank" className="block group">
+                         <div className="text-xs font-bold text-gray-800 group-hover:text-[#15803d] transition-colors">How to clear a "Blocked" Status</div>
+                         <div className="text-[10px] text-gray-400">Read Article &rarr;</div>
+                     </a>
+                     <div className="h-px bg-gray-100"></div>
+                     <a href="https://norcalcarbmobile.com/blog" target="_blank" className="block group">
+                         <div className="text-xs font-bold text-gray-800 group-hover:text-[#15803d] transition-colors">2025 vs 2026 Testing Schedules</div>
+                         <div className="text-[10px] text-gray-400">Read Article &rarr;</div>
+                     </a>
+                 </div>
+            </div>
+
+        </div>
+
+        <div className="space-y-3">
           <form onSubmit={handleZipSubmit} className="relative pt-2" id="tester-finder">
             <label className="block text-left text-xs font-bold text-[#003366] mb-1 ml-1">FIND A TESTER</label>
             <div className="flex shadow-sm rounded-xl overflow-hidden border-2 border-dashed border-gray-300 hover:border-[#003366] transition-colors bg-white">
@@ -382,7 +438,7 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
                     What vehicles?
                     <span className="text-[#15803d] group-open:rotate-180 transition-transform">▼</span>
                 </summary>
-                <p className="mt-2 text-xs text-gray-600">Heavy Duty Diesel (&gt;14,000 lbs), Motorhomes, and Ag Equipment. NO GASOLINE CARS.</p>
+                <p className="mt-2 text-xs text-gray-600">Heavy Duty Diesel (>14,000 lbs), Motorhomes, and Ag Equipment. NO GASOLINE CARS.</p>
             </details>
         </div>
       </div>
