@@ -18,5 +18,21 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Scan VIN",
+      "short_name": "Scan",
+      "description": "Check Compliance instantly",
+      "url": "/",
+      "icons": [{ "src": "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=scan&color=15803d", "sizes": "192x192" }]
+    },
+    {
+      "name": "Chat AI",
+      "short_name": "Ask AI",
+      "description": "Ask CARB Questions",
+      "url": "/?view=chat",
+      "icons": [{ "src": "https://api.qrserver.com/v1/create-qr-code/?size=192x192&data=chat&color=003366", "sizes": "192x192" }]
+    }
   ]
 }

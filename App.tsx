@@ -29,6 +29,9 @@ const App: React.FC = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showPwaBanner, setShowPwaBanner] = useState(false);
   
+  // Client Welcome State
+  const [welcomeClient, setWelcomeClient] = useState<string | null>(null);
+
   // Tester Search State
   const [searchZip, setSearchZip] = useState('');
 
@@ -40,7 +43,6 @@ const App: React.FC = () => {
   const [fullScreenQR, setFullScreenQR] = useState(false);
 
   // HARDCODED PRODUCTION URL FOR PROFESSIONAL SHARING
-  // Updated to the specific deployment URL provided for testing
   const shareUrl = 'https://1126-upgrades-git-main-carbcleantruckcheckapp.vercel.app/';
   
   const shareTitle = "Mobile Carb Check";
@@ -50,6 +52,17 @@ const App: React.FC = () => {
   useEffect(() => {
     const checkIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
     setIsIOS(checkIOS);
+  }, []);
+
+  useEffect(() => {
+    // Check for Client Parameter
+    const params = new URLSearchParams(window.location.search);
+    const client = params.get('client');
+    if (client) {
+      setWelcomeClient(decodeURIComponent(client));
+      // Clean URL without refresh
+      window.history.replaceState({}, '', window.location.pathname);
+    }
   }, []);
 
   useEffect(() => {
@@ -188,6 +201,13 @@ const App: React.FC = () => {
         <div className="bg-gray-800 text-white text-xs text-center py-1 font-bold tracking-wider">
           OFFLINE MODE: VIEWING HISTORY ONLY
         </div>
+      )}
+
+      {welcomeClient && (
+         <div className="bg-[#15803d] text-white p-3 text-center animate-in slide-in-from-top flex justify-between items-center shadow-lg relative z-50">
+            <span className="font-bold text-sm tracking-wide">👋 Welcome, {welcomeClient} Team!</span>
+            <button onClick={() => setWelcomeClient(null)} className="bg-white/20 hover:bg-white/30 rounded-full w-6 h-6 flex items-center justify-center text-xs">✕</button>
+         </div>
       )}
       
       <a href="tel:6173596953" className="bg-[#003366] text-white text-xs text-center py-2 font-medium tracking-wide px-2 block hover:bg-[#002244] active:bg-[#004488] transition-colors">

@@ -1,13 +1,18 @@
+
 import React, { useState, useRef } from 'react';
 import { scoutTruckLead } from '../services/geminiService';
 import { Lead } from '../types';
 
 const AdminView: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'SCOUT' | 'LEADS' | 'FINANCIALS'>('SCOUT');
+  const [activeTab, setActiveTab] = useState<'SCOUT' | 'LEADS' | 'TRACKING' | 'FINANCIALS'>('SCOUT');
   const [leads, setLeads] = useState<Lead[]>([]);
   const [scouting, setScouting] = useState(false);
   const [currentLead, setCurrentLead] = useState<Lead | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Tracking State
+  const [clientName, setClientName] = useState('');
+  const [generatedLink, setGeneratedLink] = useState('');
 
   const handleCapture = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -24,6 +29,18 @@ const AdminView: React.FC = () => {
     } finally {
         setScouting(false);
     }
+  };
+
+  const generateClientLink = () => {
+      if (!clientName) return;
+      const baseUrl = window.location.origin;
+      const link = `${baseUrl}/?client=${encodeURIComponent(clientName)}`;
+      setGeneratedLink(link);
+  };
+
+  const copyToClipboard = () => {
+      navigator.clipboard.writeText(generatedLink);
+      alert('Link copied! Send this to your client.');
   };
 
   const projections = [
@@ -51,10 +68,11 @@ const AdminView: React.FC = () => {
             <span className="bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">INTERNAL 1225</span>
         </div>
 
-        <div className="flex border-b border-gray-200 bg-gray-50">
-            <button className={`flex-1 p-4 font-bold text-sm ${activeTab === 'SCOUT' ? 'text-[#003366] border-b-4 border-[#00A651] bg-white' : 'text-gray-400'}`} onClick={() => setActiveTab('SCOUT')}>📷 SCOUT CAMERA</button>
-            <button className={`flex-1 p-4 font-bold text-sm ${activeTab === 'LEADS' ? 'text-[#003366] border-b-4 border-[#00A651] bg-white' : 'text-gray-400'}`} onClick={() => setActiveTab('LEADS')}>📋 LEADS ({leads.length})</button>
-            <button className={`flex-1 p-4 font-bold text-sm ${activeTab === 'FINANCIALS' ? 'text-[#003366] border-b-4 border-[#00A651] bg-white' : 'text-gray-400'}`} onClick={() => setActiveTab('FINANCIALS')}>💰 EMPIRE</button>
+        <div className="flex border-b border-gray-200 bg-gray-50 overflow-x-auto">
+            <button className={`flex-1 p-4 font-bold text-sm whitespace-nowrap ${activeTab === 'SCOUT' ? 'text-[#003366] border-b-4 border-[#00A651] bg-white' : 'text-gray-400'}`} onClick={() => setActiveTab('SCOUT')}>📷 SCOUT</button>
+            <button className={`flex-1 p-4 font-bold text-sm whitespace-nowrap ${activeTab === 'LEADS' ? 'text-[#003366] border-b-4 border-[#00A651] bg-white' : 'text-gray-400'}`} onClick={() => setActiveTab('LEADS')}>📋 LEADS</button>
+            <button className={`flex-1 p-4 font-bold text-sm whitespace-nowrap ${activeTab === 'TRACKING' ? 'text-[#003366] border-b-4 border-[#00A651] bg-white' : 'text-gray-400'}`} onClick={() => setActiveTab('TRACKING')}>🎯 LINKS</button>
+            <button className={`flex-1 p-4 font-bold text-sm whitespace-nowrap ${activeTab === 'FINANCIALS' ? 'text-[#003366] border-b-4 border-[#00A651] bg-white' : 'text-gray-400'}`} onClick={() => setActiveTab('FINANCIALS')}>💰 EMPIRE</button>
         </div>
 
         <div className="p-4">
@@ -94,6 +112,44 @@ const AdminView: React.FC = () => {
                 </div>
             )}
 
+            {activeTab === 'TRACKING' && (
+                <div className="max-w-md mx-auto py-6">
+                    <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100 text-center mb-6">
+                        <div className="text-4xl mb-4">🔗</div>
+                        <h3 className="font-bold text-[#003366] text-lg mb-2">Client Link Generator</h3>
+                        <p className="text-sm text-gray-600 mb-6">Create a personalized link for a fleet manager. When they open it, they'll see a custom welcome message.</p>
+                        
+                        <div className="space-y-3">
+                            <div className="text-left">
+                                <label className="text-xs font-bold text-gray-500 uppercase ml-1">Client Name</label>
+                                <input 
+                                    type="text" 
+                                    value={clientName}
+                                    onChange={(e) => setClientName(e.target.value)}
+                                    placeholder="e.g. FedEx Ground" 
+                                    className="w-full p-3 border rounded-xl font-bold text-[#003366]"
+                                />
+                            </div>
+                            <button onClick={generateClientLink} className="w-full py-3 bg-[#003366] text-white rounded-xl font-bold hover:bg-[#002244]">
+                                Generate Link
+                            </button>
+                        </div>
+                    </div>
+
+                    {generatedLink && (
+                        <div className="bg-green-50 p-4 rounded-xl border border-green-200 animate-in slide-in-from-top-2">
+                            <p className="text-xs font-bold text-green-800 mb-2 uppercase">Ready to Share:</p>
+                            <div className="bg-white p-3 rounded border border-gray-200 text-xs font-mono break-all mb-3 text-gray-600">
+                                {generatedLink}
+                            </div>
+                            <button onClick={copyToClipboard} className="w-full py-2 bg-[#00A651] text-white rounded-lg font-bold text-sm shadow-sm hover:bg-[#008a42]">
+                                Copy to Clipboard
+                            </button>
+                        </div>
+                    )}
+                </div>
+            )}
+
             {activeTab === 'FINANCIALS' && (
                 <div className="overflow-x-auto">
                     <h3 className="text-[#003366] font-bold mb-4">Revenue Projections (2026-2030)</h3>
@@ -103,7 +159,6 @@ const AdminView: React.FC = () => {
                                 <th className="px-4 py-3">Year</th>
                                 <th className="px-4 py-3">Trucks</th>
                                 <th className="px-4 py-3">Tests/Yr</th>
-                                <th className="px-4 py-3">Total Tests</th>
                                 <th className="px-4 py-3">Revenue</th>
                             </tr>
                         </thead>
@@ -113,7 +168,6 @@ const AdminView: React.FC = () => {
                                     <td className="px-4 py-3 font-bold">{row.year}</td>
                                     <td className="px-4 py-3">{row.trucks.toLocaleString()}</td>
                                     <td className="px-4 py-3 text-center">{row.testsPerYear}x</td>
-                                    <td className="px-4 py-3">{row.totalTests.toLocaleString()}</td>
                                     <td className="px-4 py-3 font-bold text-[#00A651]">${row.revenue.toLocaleString()}</td>
                                 </tr>
                             ))}

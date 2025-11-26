@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import { extractVinFromImage } from '../services/geminiService';
 
@@ -14,6 +15,9 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
   const [zipInput, setZipInput] = useState('');
   const [showRedirectModal, setShowRedirectModal] = useState(false);
   const [hasClickedLink, setHasClickedLink] = useState(false);
+  
+  // Night Ops State
+  const [nightMode, setNightMode] = useState(false);
   
   // Podcast State
   const [isPlaying, setIsPlaying] = useState(false);
@@ -106,20 +110,27 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
   };
 
   return (
-    <div className="flex flex-col items-center w-full pb-10">
+    <div className={`flex flex-col items-center w-full pb-10 transition-colors duration-300 ${nightMode ? 'bg-black min-h-screen' : ''}`}>
       
-      <div className="w-full bg-gradient-to-b from-[#003366] to-[#f8f9fa] pb-12 pt-6 px-4 rounded-b-[3rem] shadow-sm mb-[-40px]">
-        <div className="max-w-md mx-auto text-center text-white">
+      <div className={`w-full pb-12 pt-6 px-4 rounded-b-[3rem] shadow-sm mb-[-40px] transition-colors duration-300 ${nightMode ? 'bg-gray-900 border-b border-gray-800' : 'bg-gradient-to-b from-[#003366] to-[#f8f9fa]'}`}>
+        <div className="max-w-md mx-auto text-center text-white relative">
+            <button 
+                onClick={() => setNightMode(!nightMode)} 
+                className={`absolute top-0 right-0 p-2 rounded-full ${nightMode ? 'bg-yellow-400 text-black' : 'bg-black/20 text-white'} transition-all`}
+            >
+                {nightMode ? '☀️' : '🔦'}
+            </button>
+
             <h2 className="text-xl font-light opacity-90 tracking-wide mb-1">CALIFORNIA STATEWIDE</h2>
-            <p className="text-3xl font-black tracking-tight mb-6">Compliance Status & Mobile Testing</p>
+            <p className="text-3xl font-black tracking-tight mb-6">{nightMode ? 'NIGHT OPS MODE' : 'Compliance & Testing'}</p>
             
-            <button onClick={onInstallApp} className="bg-[#15803d] text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg hover:bg-[#166534] active:scale-95 transition-all inline-flex items-center gap-2 mb-4">
+            <button onClick={onInstallApp} className={`${nightMode ? 'bg-gray-700' : 'bg-[#15803d]'} text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg hover:brightness-110 active:scale-95 transition-all inline-flex items-center gap-2 mb-4`}>
                 <span>⬇️ INSTALL APP</span>
             </button>
         </div>
       </div>
 
-      <div className="bg-white p-6 sm:p-8 rounded-[24px] shadow-[0_20px_40px_rgba(0,51,102,0.15)] border border-gray-100 w-full max-w-md text-center relative overflow-hidden z-10">
+      <div className={`${nightMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-100'} p-6 sm:p-8 rounded-[24px] shadow-[0_20px_40px_rgba(0,51,102,0.15)] border w-full max-w-md text-center relative overflow-hidden z-10 transition-colors duration-300`}>
         
         {loading && (
           <div className="absolute inset-0 bg-white/95 flex items-center justify-center z-20 backdrop-blur-sm">
@@ -132,9 +143,9 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
 
         <button 
             onClick={() => fileInputRef.current?.click()}
-            className="w-full mb-6 py-5 bg-gradient-to-r from-[#003366] to-[#002244] text-white rounded-2xl font-bold text-xl shadow-lg shadow-blue-900/20 flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all group"
+            className={`w-full mb-6 py-5 rounded-2xl font-bold text-xl shadow-lg flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all group ${nightMode ? 'bg-white text-black' : 'bg-gradient-to-r from-[#003366] to-[#002244] text-white shadow-blue-900/20'}`}
         >
-            <div className="bg-white/10 p-2 rounded-full group-hover:bg-white/20 transition-colors">
+            <div className={`${nightMode ? 'bg-black/10' : 'bg-white/10'} p-2 rounded-full transition-colors`}>
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </div>
             SCAN VIN TAG
@@ -148,13 +159,13 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
                     onChange={handleInputChange}
                     placeholder="Or Type VIN..."
                     maxLength={17}
-                    className={`w-full p-4 pr-16 text-2xl font-black text-center border-4 ${hasInvalidChars ? 'border-red-500 focus:ring-red-200' : 'border-[#003366] focus:ring-blue-100'} rounded-xl focus:outline-none focus:ring-4 transition-all font-mono uppercase tracking-widest text-[#003366] placeholder:text-gray-400 placeholder:text-xl placeholder:font-sans placeholder:font-bold placeholder:normal-case shadow-inner`}
+                    className={`w-full p-4 pr-16 text-2xl font-black text-center border-4 ${hasInvalidChars ? 'border-red-500 focus:ring-red-200' : nightMode ? 'border-white bg-gray-800 text-white placeholder:text-gray-500' : 'border-[#003366] focus:ring-blue-100 text-[#003366] placeholder:text-gray-400'} rounded-xl focus:outline-none focus:ring-4 transition-all font-mono uppercase tracking-widest placeholder:text-xl placeholder:font-sans placeholder:font-bold placeholder:normal-case shadow-inner`}
                 />
                 
                 {/* INLINE SUBMIT BUTTON */}
                 <button 
                     type="submit"
-                    className="absolute right-2 top-2 bottom-2 bg-[#15803d] text-white w-12 rounded-lg flex items-center justify-center shadow-md hover:bg-[#166534] active:scale-95 transition-all"
+                    className={`absolute right-2 top-2 bottom-2 w-12 rounded-lg flex items-center justify-center shadow-md active:scale-95 transition-all ${nightMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-[#15803d] text-white hover:bg-[#166534]'}`}
                 >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                 </button>
@@ -170,8 +181,8 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
                  </p>
              </div>
         ) : (
-            <p className="text-[10px] text-gray-500 mb-6 px-2 text-center leading-tight">
-                <span className="font-bold text-[#003366]">VIN RULES:</span> Never use letters <span className="font-bold text-red-500">I, O, Q</span>. Press <span className="font-bold text-[#15803d]">GO</span> to Check.
+            <p className={`text-[10px] mb-6 px-2 text-center leading-tight ${nightMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <span className={`font-bold ${nightMode ? 'text-white' : 'text-[#003366]'}`}>VIN RULES:</span> Never use letters <span className="font-bold text-red-500">I, O, Q</span>. Press <span className={`font-bold ${nightMode ? 'text-white' : 'text-[#15803d]'}`}>GO</span> to Check.
             </p>
         )}
 
@@ -179,9 +190,9 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
         <div className="space-y-4 mb-6">
             
             {/* AUDIO PLAYER CARD */}
-            <div className="bg-[#003366] rounded-xl p-4 text-white shadow-lg relative overflow-hidden group">
+            <div className={`${nightMode ? 'bg-gray-800' : 'bg-[#003366]'} rounded-xl p-4 text-white shadow-lg relative overflow-hidden group`}>
                 <div className="relative z-10 flex items-center gap-4">
-                    <button onClick={togglePodcast} className="bg-[#15803d] w-12 h-12 rounded-full flex items-center justify-center shadow-md hover:bg-[#166534] transition-transform active:scale-95 flex-shrink-0">
+                    <button onClick={togglePodcast} className={`${nightMode ? 'bg-white text-black' : 'bg-[#15803d] text-white'} w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-transform active:scale-95 flex-shrink-0`}>
                         {isPlaying ? (
                             <span className="text-xl">❚❚</span>
                         ) : (
@@ -203,18 +214,18 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
             </div>
 
             {/* BLOG LINKS */}
-            <div className="bg-white border border-gray-100 rounded-xl p-4 text-left shadow-sm">
-                 <h4 className="font-bold text-[#003366] text-sm mb-3 flex items-center gap-2">
+            <div className={`${nightMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'} border rounded-xl p-4 text-left shadow-sm`}>
+                 <h4 className={`font-bold text-sm mb-3 flex items-center gap-2 ${nightMode ? 'text-white' : 'text-[#003366]'}`}>
                     <span className="bg-blue-50 p-1 rounded">📰</span> Latest Updates
                  </h4>
                  <div className="space-y-3">
                      <a href="https://norcalcarbmobile.com/blog" target="_blank" className="block group">
-                         <div className="text-xs font-bold text-gray-800 group-hover:text-[#15803d] transition-colors">How to clear a "Blocked" Status</div>
+                         <div className={`text-xs font-bold group-hover:text-[#15803d] transition-colors ${nightMode ? 'text-gray-300' : 'text-gray-800'}`}>How to clear a "Blocked" Status</div>
                          <div className="text-[10px] text-gray-400">Read Article &rarr;</div>
                      </a>
-                     <div className="h-px bg-gray-100"></div>
+                     <div className={`h-px ${nightMode ? 'bg-gray-700' : 'bg-gray-100'}`}></div>
                      <a href="https://norcalcarbmobile.com/blog" target="_blank" className="block group">
-                         <div className="text-xs font-bold text-gray-800 group-hover:text-[#15803d] transition-colors">2025 vs 2026 Testing Schedules</div>
+                         <div className={`text-xs font-bold group-hover:text-[#15803d] transition-colors ${nightMode ? 'text-gray-300' : 'text-gray-800'}`}>2025 vs 2026 Testing Schedules</div>
                          <div className="text-[10px] text-gray-400">Read Article &rarr;</div>
                      </a>
                  </div>
@@ -224,19 +235,19 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
 
         <div className="space-y-3">
           <form onSubmit={handleZipSubmit} className="relative pt-2" id="tester-finder">
-            <label className="block text-left text-xs font-bold text-[#003366] mb-1 ml-1">FIND A TESTER</label>
-            <div className="flex shadow-sm rounded-xl overflow-hidden border-2 border-dashed border-gray-300 hover:border-[#003366] transition-colors bg-white">
+            <label className={`block text-left text-xs font-bold mb-1 ml-1 ${nightMode ? 'text-gray-400' : 'text-[#003366]'}`}>FIND A TESTER</label>
+            <div className={`flex shadow-sm rounded-xl overflow-hidden border-2 border-dashed transition-colors ${nightMode ? 'border-gray-600 bg-gray-800' : 'border-gray-300 hover:border-[#003366] bg-white'}`}>
                 <input 
                     type="tel" 
                     placeholder="Enter Zip Code"
                     value={zipInput}
                     onChange={(e) => setZipInput(e.target.value)}
                     maxLength={5}
-                    className="flex-1 p-4 font-bold text-lg text-[#003366] placeholder:text-gray-400 focus:outline-none"
+                    className={`flex-1 p-4 font-bold text-lg placeholder:text-gray-400 focus:outline-none ${nightMode ? 'bg-gray-800 text-white' : 'bg-white text-[#003366]'}`}
                 />
                 <button 
                     type="submit"
-                    className="px-6 bg-gray-100 text-[#003366] font-black hover:bg-[#003366] hover:text-white transition-colors active:bg-[#002244] flex items-center gap-1"
+                    className={`px-6 font-black transition-colors flex items-center gap-1 ${nightMode ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-100 text-[#003366] hover:bg-[#003366] hover:text-white'}`}
                 >
                     SEARCH
                 </button>
@@ -247,7 +258,7 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
             href="https://cleantruckcheck.arb.ca.gov/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full p-4 text-lg font-bold text-[#003366] bg-blue-50 border border-blue-100 rounded-xl hover:bg-blue-100 transition-all shadow-sm active:scale-[0.98] flex items-center justify-center gap-2 block no-underline"
+            className={`w-full p-4 text-lg font-bold border rounded-xl transition-all shadow-sm active:scale-[0.98] flex items-center justify-center gap-2 block no-underline ${nightMode ? 'bg-gray-800 text-white border-gray-700 hover:bg-gray-700' : 'bg-blue-50 text-[#003366] border-blue-100 hover:bg-blue-100'}`}
           >
             <span>GET COMPLIANT</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
@@ -340,19 +351,19 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
       <div className="flex justify-center gap-6 mt-8 grayscale opacity-50">
            <div className="text-center">
                 <div className="text-2xl">🛡️</div>
-                <div className="text-[10px] font-bold mt-1">Secure</div>
+                <div className={`text-[10px] font-bold mt-1 ${nightMode ? 'text-gray-500' : ''}`}>Secure</div>
            </div>
            <div className="text-center">
                 <div className="text-2xl">⚡</div>
-                <div className="text-[10px] font-bold mt-1">Instant</div>
+                <div className={`text-[10px] font-bold mt-1 ${nightMode ? 'text-gray-500' : ''}`}>Instant</div>
            </div>
            <div className="text-center">
                 <div className="text-2xl">🤝</div>
-                <div className="text-[10px] font-bold mt-1">Trusted</div>
+                <div className={`text-[10px] font-bold mt-1 ${nightMode ? 'text-gray-500' : ''}`}>Trusted</div>
            </div>
       </div>
 
-      <div className="mt-8 w-full max-w-md bg-white/50 border border-white p-6 rounded-xl mb-6 backdrop-blur-sm">
+      <div className={`mt-8 w-full max-w-md bg-white/50 border border-white p-6 rounded-xl mb-6 backdrop-blur-sm ${nightMode ? 'opacity-20' : ''}`}>
         <h3 className="font-bold text-[#003366] text-lg mb-4">Common Questions</h3>
         <div className="space-y-3 divide-y divide-gray-200/50">
              
