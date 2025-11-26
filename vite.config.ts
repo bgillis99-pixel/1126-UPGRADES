@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname), // Use current directory as root
+        '@': path.resolve(process.cwd()), // Use current directory as root
       },
     },
     define: {
