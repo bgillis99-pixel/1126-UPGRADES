@@ -115,6 +115,7 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
         <div className="max-w-md mx-auto text-center text-white relative">
             <button 
                 onClick={() => setNightMode(!nightMode)} 
+                aria-label={nightMode ? "Switch to Day Mode" : "Switch to Night Mode"}
                 className={`absolute top-0 right-0 p-2 rounded-full ${nightMode ? 'bg-yellow-400 text-black' : 'bg-black/20 text-white'} transition-all`}
             >
                 {nightMode ? '☀️' : '🔦'}
@@ -145,7 +146,7 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
             className={`w-full mb-6 py-5 rounded-2xl font-bold text-xl shadow-lg flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all group ${nightMode ? 'bg-white text-black' : 'bg-gradient-to-r from-[#003366] to-[#002244] text-white shadow-blue-900/20'}`}
         >
             <div className={`${nightMode ? 'bg-black/10' : 'bg-white/10'} p-2 rounded-full transition-colors`}>
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
             </div>
             SCAN VIN TAG
         </button>
@@ -164,6 +165,7 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
                 {/* INLINE SUBMIT BUTTON */}
                 <button 
                     type="submit"
+                    aria-label="Check VIN"
                     className={`absolute right-2 top-2 bottom-2 w-12 rounded-lg flex items-center justify-center shadow-md active:scale-95 transition-all ${nightMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-[#15803d] text-white hover:bg-[#166534]'}`}
                 >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -191,7 +193,7 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
             {/* AUDIO PLAYER CARD */}
             <div className={`${nightMode ? 'bg-gray-800' : 'bg-[#003366]'} rounded-xl p-4 text-white shadow-lg relative overflow-hidden group`}>
                 <div className="relative z-10 flex items-center gap-4">
-                    <button onClick={togglePodcast} className={`${nightMode ? 'bg-white text-black' : 'bg-[#15803d] text-white'} w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-transform active:scale-95 flex-shrink-0`}>
+                    <button onClick={togglePodcast} aria-label={isPlaying ? "Pause Podcast" : "Play Podcast"} className={`${nightMode ? 'bg-white text-black' : 'bg-[#15803d] text-white'} w-12 h-12 rounded-full flex items-center justify-center shadow-md transition-transform active:scale-95 flex-shrink-0`}>
                         {isPlaying ? (
                             <span className="text-xl">❚❚</span>
                         ) : (

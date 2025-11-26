@@ -216,7 +216,7 @@ const App: React.FC = () => {
       {welcomeClient && (
          <div className="bg-[#15803d] text-white p-3 text-center animate-in slide-in-from-top flex justify-between items-center shadow-lg relative z-50">
             <span className="font-bold text-sm tracking-wide">👋 Welcome, {welcomeClient} Team!</span>
-            <button onClick={() => setWelcomeClient(null)} className="bg-white/20 hover:bg-white/30 rounded-full w-6 h-6 flex items-center justify-center text-xs">✕</button>
+            <button onClick={() => setWelcomeClient(null)} aria-label="Close welcome banner" className="bg-white/20 hover:bg-white/30 rounded-full w-6 h-6 flex items-center justify-center text-xs">✕</button>
          </div>
       )}
       
@@ -240,7 +240,7 @@ const App: React.FC = () => {
                 onClick={() => setShowInstall(true)} 
                 className="bg-[#15803d] text-white px-4 py-2 rounded-full font-bold text-sm shadow-md hover:bg-[#166534] active:scale-95 active:bg-[#14532d] transition-all flex items-center gap-2"
             >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
                 SHARE APP
             </button>
         </header>
@@ -251,7 +251,7 @@ const App: React.FC = () => {
               <div className="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl transform transition-all scale-100" onClick={e => e.stopPropagation()}>
                   <div className="flex justify-between items-center mb-4">
                       <h3 className="text-xl font-bold text-[#003366]">Share & Install</h3>
-                      <button onClick={() => setShowInstall(false)} className="text-gray-400 hover:text-gray-600 p-2 text-2xl leading-none active:scale-90 transition-transform">&times;</button>
+                      <button onClick={() => setShowInstall(false)} aria-label="Close install modal" className="text-gray-400 hover:text-gray-600 p-2 text-2xl leading-none active:scale-90 transition-transform">&times;</button>
                   </div>
                   
                   <p className="text-sm text-gray-500 mb-6">Help friends keep their trucks compliant.</p>
@@ -400,7 +400,7 @@ const App: React.FC = () => {
                 </div>
             </div>
             <div className="flex items-center gap-2">
-                <button onClick={() => setShowPwaBanner(false)} className="text-gray-400 hover:text-white p-2">✕</button>
+                <button onClick={() => setShowPwaBanner(false)} aria-label="Close PWA banner" className="text-gray-400 hover:text-white p-2">✕</button>
                 <button onClick={handleInstallClick} className="bg-[#15803d] text-white px-4 py-2 rounded-lg font-bold text-sm shadow-md hover:bg-[#166534] active:scale-95 transition-transform">
                     INSTALL
                 </button>
@@ -415,7 +415,7 @@ const App: React.FC = () => {
           className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.HOME ? '-translate-y-2' : ''}`}
         >
           <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.HOME ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           </div>
           <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.HOME ? 'text-[#15803d]' : 'text-gray-400'}`}>CHECK</span>
         </button>
@@ -425,7 +425,7 @@ const App: React.FC = () => {
           className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.ASSISTANT ? '-translate-y-2' : ''}`}
         >
            <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.ASSISTANT ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
           </div>
           <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.ASSISTANT ? 'text-[#15803d]' : 'text-gray-400'}`}>CHAT</span>
         </button>
@@ -435,7 +435,7 @@ const App: React.FC = () => {
           className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.EDUCATION ? '-translate-y-2' : ''}`}
         >
            <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.EDUCATION ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
           </div>
           <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.EDUCATION ? 'text-[#15803d]' : 'text-gray-400'}`}>LEARN</span>
         </button>
@@ -445,7 +445,7 @@ const App: React.FC = () => {
           className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.ANALYZE ? '-translate-y-2' : ''}`}
         >
            <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.ANALYZE ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
           </div>
           <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.ANALYZE ? 'text-[#15803d]' : 'text-gray-400'}`}>TOOLS</span>
         </button>
@@ -455,7 +455,7 @@ const App: React.FC = () => {
           className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.PROFILE ? '-translate-y-2' : ''}`}
         >
            <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.PROFILE ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
           </div>
           <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.PROFILE ? 'text-[#15803d]' : 'text-gray-400'}`}>PROFILE</span>
         </button>
