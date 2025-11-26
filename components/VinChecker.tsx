@@ -84,7 +84,8 @@ const VinChecker: React.FC<Props> = ({ onAddToHistory, onNavigateChat, onInstall
   const handleFailed = () => {
       setShowRedirectModal(false);
       // Scroll to finder
-      document.getElementById('tester-finder')?.scrollIntoView({ behavior: 'smooth' });
+      const el = document.getElementById('tester-finder');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleZipSubmit = (e: React.FormEvent) => {
