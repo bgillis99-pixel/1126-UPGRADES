@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
+import { Analytics } from "@vercel/analytics/react";
 import VinChecker from './components/VinChecker';
 import ChatAssistant from './components/ChatAssistant';
 import MediaTools from './components/MediaTools';
@@ -55,13 +55,22 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Check for Client Parameter
+    // Check for Client Parameter & View Parameter (for Shortcuts)
     const params = new URLSearchParams(window.location.search);
     const client = params.get('client');
+    const view = params.get('view');
+
     if (client) {
       setWelcomeClient(decodeURIComponent(client));
-      // Clean URL without refresh
-      window.history.replaceState({}, '', window.location.pathname);
+    }
+    
+    if (view === 'chat') {
+        setCurrentView(AppView.ASSISTANT);
+    }
+
+    // Clean URL without refresh if we processed params
+    if (client || view) {
+        window.history.replaceState({}, '', window.location.pathname);
     }
   }, []);
 
@@ -197,6 +206,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8f9fa] font-sans text-[#003366]">
+      <Analytics />
       {!isOnline && (
         <div className="bg-gray-800 text-white text-xs text-center py-1 font-bold tracking-wider">
           OFFLINE MODE: VIEWING HISTORY ONLY
