@@ -4,29 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Squarespace Codes - Mobile Carb Testing</title>
+    <title>Squarespace Copy-Paste Center</title>
     <style>
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px; background: #f4f4f4; color: #333; max-width: 800px; margin: 0 auto; }
-        h1 { color: #003366; }
-        h2 { color: #003366; margin-top: 40px; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
-        .alert { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-        textarea { width: 100%; height: 150px; font-family: monospace; padding: 15px; background: #222; color: #00ff00; border-radius: 8px; border: none; margin-top: 10px; }
-        .preview-label { font-weight: bold; font-size: 12px; color: #666; text-transform: uppercase; margin-top: 20px; display: block; }
+        body { font-family: sans-serif; padding: 40px; background: #f0f2f5; color: #333; max-width: 800px; margin: 0 auto; }
+        h1 { color: #003366; border-bottom: 3px solid #00C853; display: inline-block; padding-bottom: 10px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        textarea { width: 100%; height: 120px; font-family: monospace; padding: 15px; background: #2d2d2d; color: #4ade80; border-radius: 8px; border: none; margin-top: 15px; font-size: 13px; }
+        .note { background: #e8f5e9; color: #1b5e20; padding: 10px; border-radius: 6px; font-size: 14px; margin-bottom: 15px; border-left: 4px solid #00C853; }
+        .alert { background: #fff3cd; color: #856404; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #ffeeba; }
     </style>
 </head>
 <body>
 
-    <h1>Squarespace Integration Center</h1>
+    <h1>Squarespace Control Center</h1>
     
     <div class="alert">
-        <strong>⚠️ Having Trouble?</strong><br>
-        If you see a "404 Deployment Not Found" error, go to your Vercel Dashboard, click "Deployments", and verify the latest one is Green (Ready).
+        <strong>Deployment Status:</strong> The package.json error has been fixed. Uploading these files will trigger a successful build on Vercel.
     </div>
 
-    <h2>1. The "Open Carb App" Button</h2>
-    <p>Paste this into a <strong>Code Block</strong> on your Homepage or Footer.</p>
-    <textarea onclick="this.select()">
-<div align="center" style="margin: 30px 0;">
+    <div class="card">
+        <h2>1. The Green "Open App" Button</h2>
+        <div class="note">
+            <strong>Where to put it:</strong> Add a "Code Block" to your Homepage hero section or your Footer.
+        </div>
+        <textarea onclick="this.select()">
+<div align="center" style="margin: 30px 0; text-align: center;">
   <a href="https://carbcleantruckcheck.app" target="_blank" rel="noopener noreferrer" style="
     background-color: #00C853; 
     color: #ffffff !important; 
@@ -43,18 +45,23 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    transition: transform 0.2s ease;">
+    transition: transform 0.2s ease;
+    cursor: pointer;">
     <span style="font-size: 24px;">📱</span> OPEN CARB APP
   </a>
   <p style="margin-top: 15px; color: #555; font-size: 13px; font-weight: bold; opacity: 0.8;">
     Instant VIN Checks • Mobile Smoke Testing
   </p>
 </div>
-    </textarea>
+        </textarea>
+    </div>
 
-    <h2>2. Full App Embed (Iframe)</h2>
-    <p>Paste this into a Code Block on a new page called "App".</p>
-    <textarea onclick="this.select()">
+    <div class="card">
+        <h2>2. Embed the Whole App</h2>
+        <div class="note">
+            <strong>Where to put it:</strong> Create a new page (e.g., /app) and add a "Code Block".
+        </div>
+        <textarea onclick="this.select()">
 <div style="width: 100%; height: 850px; max-width: 500px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 2px solid #003366; background: #f8f9fa;">
   <iframe 
     src="https://carbcleantruckcheck.app" 
@@ -63,7 +70,8 @@
     title="Clean Truck Check App">
   </iframe>
 </div>
-    </textarea>
+        </textarea>
+    </div>
 
 </body>
 </html>

@@ -1,39 +1,47 @@
 
-# 🚀 DEPLOYMENT GUIDE (FIXED)
+# 🚀 FINAL DEPLOYMENT & FIX GUIDE
 
-**The Error You Saw:** `DEPLOYMENT_NOT_FOUND`
-**The Reason:** You likely clicked a temporary link that expired, or I guessed the wrong project name in the previous guide.
+**Problem:** You saw `404: DEPLOYMENT_NOT_FOUND`.
+**Cause:** You clicked a link to a deployment that doesn't exist or has a different ID.
+**Solution:** Follow the steps below to find **YOUR** specific working link.
 
-### STEP 1: FIND YOUR ACTUAL LINK
-1. Go to your **[Vercel Dashboard](https://vercel.com/dashboard)**.
-2. Click on **YOUR** project (Whatever you named it).
-3. Look at the top left under your project name.
-4. You will see a button that says **Visit**.
-5. **CLICK THAT BUTTON.**
-   *   *Does it open the app?* -> **Great.** Copy that URL from the browser bar.
-   *   *Does it say 404?* -> You need to redeploy (see Step 2).
+---
 
-### STEP 2: IF THE APP IS BROKEN (REDEPLOY)
-1. In Vercel, go to the **Deployments** tab.
-2. If the top one is Red (Failed) or doesn't exist:
-   *   Go to your computer folder where these files are.
-   *   Make a small change (like adding a space to `README.md`) and save.
-   *   Go to GitHub Desktop (or web) and **Commit & Push** again.
-   *   Vercel will automatically start a new build.
+### STEP 1: FIND YOUR ACTUAL PROJECT LINK
+1.  Log in to **[Vercel.com/dashboard](https://vercel.com/dashboard)**.
+2.  **Click on the project you created.** (It might be named `mobile-carb-check`, `carb-app`, or whatever you typed).
+3.  Look at the top-left of the screen, just under the project name.
+4.  You will see a button that says **Visit**.
+5.  **CLICK THAT "VISIT" BUTTON.**
+    *   This is the *only* link that is guaranteed to work.
+    *   Copy that URL (e.g., `https://your-project-name.vercel.app`).
 
-### STEP 3: CONNECTING THE DOMAIN
-*If your link is `something-random.vercel.app` but you want `carbcleantruckcheck.app`*
+### STEP 2: CONNECT THE DOMAIN (If you want the .app link)
+If the link from Step 1 works, but `carbcleantruckcheck.app` does not:
 
-1. In Vercel, go to **Settings** -> **Domains**.
-2. Type `carbcleantruckcheck.app` and click Add.
-3. Vercel will give you a **Value** (usually `76.76.21.21`).
-4. Go to Squarespace -> Domains -> DNS.
-5. Delete the default Squarespace records.
-6. Add an **A Record**:
-   *   Host: `@`
-   *   Data: `76.76.21.21` (or whatever Vercel says).
-7. Add a **CNAME Record**:
-   *   Host: `www`
-   *   Data: `cname.vercel-dns.com`
+1.  In Vercel, click **Settings** (top menu) -> **Domains** (left menu).
+2.  Type `carbcleantruckcheck.app` and click **Add**.
+3.  Vercel will likely show an "Invalid Configuration" error and give you a value (usually `76.76.21.21`).
+4.  Go to your **Squarespace Domains** panel.
+5.  **Delete any default records** (trash can icon).
+6.  Add an **A Record**:
+    *   Host: `@`
+    *   Data: `76.76.21.21` (or the number Vercel gave you).
+7.  Add a **CNAME Record**:
+    *   Host: `www`
+    *   Data: `cname.vercel-dns.com`
 
-**WAIT TIME:** It takes 1 hour to 24 hours for the domain to work. Until then, use the `.vercel.app` link.
+*Note: It can take up to 24 hours for the domain to start working globally.*
+
+### STEP 3: UPDATE SQUARESPACE BUTTON
+1.  Once you have a working link (either the `.vercel.app` one or the `.app` one), open `SQUARESPACE_BUTTON_CODE.txt`.
+2.  If your domain isn't working yet, replace `https://carbcleantruckcheck.app` with your working Vercel link inside that text file.
+3.  Paste the code into a **Code Block** on your Squarespace site.
+
+---
+
+### HOW TO "FRESH DEPLOY"
+To force a fresh deployment:
+1.  Download the files from this chat.
+2.  Upload them to your GitHub repository (drag and drop -> Commit Changes).
+3.  Vercel detects the change automatically and builds a fresh version.
