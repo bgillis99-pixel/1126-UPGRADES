@@ -1,0 +1,34 @@
+
+<div align="center" style="margin: 40px 0;">
+  <!-- THE BUTTON -->
+  <a href="https://carbcleantruckcheck.app" target="_blank" style="
+    background-color: #00C853; 
+    color: #ffffff !important; 
+    font-family: 'Helvetica Neue', Arial, sans-serif; 
+    font-weight: 900; 
+    font-size: 20px; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none !important; 
+    padding: 22px 45px; 
+    border-radius: 50px; 
+    border: 4px solid #ffffff; 
+    box-shadow: 0 10px 25px rgba(0, 200, 83, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s ease;">
+    <span>📱</span> OPEN CARB APP
+  </a>
+  
+  <!-- THE SUBTEXT -->
+  <p style="
+    margin-top: 15px; 
+    color: #555; 
+    font-size: 13px; 
+    font-family: Arial, sans-serif; 
+    font-weight: bold; 
+    opacity: 0.8;">
+    Instant VIN Checks • Mobile Smoke Testing
+  </p>
+</div>

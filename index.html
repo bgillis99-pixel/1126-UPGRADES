@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#003366">
+  
+  <title>CARB App - Mobile Clean Truck Check</title>
+
+  <meta name="description" content="California's Premier Mobile CARB Compliance App. Instant VIN Checks & Smoke Testing. Heavy Duty Diesel >14k lbs.">
+  <meta name="keywords" content="CARB App, Clean Truck Check, Heavy Duty Diesel, Smoke Test, VIN Check, California Trucking">
+  
+  <meta property="og:title" content="CARB App - Clean Truck Check">
+  <meta property="og:description" content="Check VIN Compliance instantly. Request Mobile Smoke/OBD Testing anywhere in California.">
+  <meta property="og:type" content="website">
+  
+  <link rel="canonical" href="https://carbcleantruckcheck.app" />
+  
+  <!-- Tailwind CSS via CDN for simplicity in this setup -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    :root {
+      --green: #15803d;
+      --navy: #003366;
+    }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #003366;
+    }
+    /* Custom scrollbar for Webkit */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--green);
+      border-radius: 3px;
+    }
+  </style>
+  
+  <!-- Google Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "CARB App",
+        "operatingSystem": "iOS, Android, Web",
+        "applicationCategory": "BusinessApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Mobile application for checking CARB compliance status and locating certified smoke testers."
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Mobile Carb Testing",
+        "telephone": "617-359-6953",
+        "email": "info@carbcleantruckcheck.app",
+        "url": "https://carbcleantruckcheck.app",
+        "areaServed": {
+          "@type": "State",
+          "name": "California"
+        }
+      }
+    ]
+  }
+  </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "path": "https://aistudiocdn.com/path@^0.12.7"
+  }
+}
+</script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

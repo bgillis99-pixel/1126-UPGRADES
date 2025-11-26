@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squarespace Widgets - Clean Truck Check</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 40px; background: #f4f4f4; color: #333; }
+        h2 { color: #003366; margin-top: 50px; border-bottom: 4px solid #00C853; display: inline-block; padding-bottom: 5px; }
+        .instruction { background: #eef; padding: 15px; border-radius: 8px; border-left: 4px solid #003366; margin-bottom: 10px; }
+        textarea { width: 100%; height: 120px; font-family: monospace; padding: 15px; background: #2d2d2d; color: #00C853; border-radius: 8px; border: none; margin-bottom: 20px; }
+        .preview-label { font-weight: bold; text-transform: uppercase; color: #999; font-size: 12px; margin-bottom: 5px; display: block; }
+        .preview-box { border: 2px dashed #ccc; padding: 40px; background: white; position: relative; min-height: 100px; margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+
+    <h1>Squarespace Integration Code</h1>
+    <p>Use these snippets to add the app to your Squarespace site. <strong>Add a "Code Block" and paste the snippet inside.</strong></p>
+
+    <!-- WIDGET 1 -->
+    <h2>1. The Full App Embed (Live Updating)</h2>
+    <div class="instruction">
+        <strong>Where to put it:</strong> Create a new page called "App" or "Compliance Tool". Add a Code Block and paste this.
+        <br><strong>Note:</strong> This automatically updates whenever you update the main code on Vercel.
+    </div>
+
+    <span class="preview-label">Code to Copy:</span>
+    <textarea onclick="this.select()">
+<div style="width: 100%; max-width: 500px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 2px solid #003366;">
+  <iframe 
+    src="https://carbcleantruckcheck.app" 
+    style="width: 100%; height: 850px; border: none; display: block;"
+    allow="camera; microphone; geolocation"
+    title="Clean Truck Check App">
+  </iframe>
+</div>
+    </textarea>
+
+    <!-- WIDGET 2 -->
+    <h2>2. Floating "Open Carb App" Button</h2>
+    <div class="instruction">
+        <strong>Where to put it:</strong> Add a Code Block to your <strong>Site Footer</strong>. This ensures it appears on every page of your website.
+    </div>
+    
+    <span class="preview-label">Code to Copy:</span>
+    <textarea onclick="this.select()">
+<a href="https://carbcleantruckcheck.app" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background-color: #00C853; color: white; text-decoration: none; padding: 16px 32px; border-radius: 50px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999; font-size: 16px; border: 2px solid white; transition: transform 0.2s;">
+    📱 OPEN CARB APP
+</a>
+    </textarea>
+
+    <!-- WIDGET 3 -->
+    <h2>3. Full Width "App Banner"</h2>
+    <div class="instruction">
+        <strong>Where to put it:</strong> Add a Code Block to your <strong>Homepage</strong> or top of blog posts.
+    </div>
+
+    <span class="preview-label">Code to Copy:</span>
+    <textarea onclick="this.select()">
+<div style="background: #003366; padding: 40px 20px; text-align: center; border-radius: 8px; color: white; font-family: Helvetica, Arial, sans-serif; margin: 20px 0;">
+    <h3 style="margin: 0 0 10px 0; font-size: 24px; font-weight: bold;">CLEAN TRUCK CHECK APP</h3>
+    <p style="margin: 0 0 20px 0; font-size: 16px; opacity: 0.9;">Instant VIN Checks. Mobile Smoke Testers. No Hotline Wait.</p>
+    <a href="https://carbcleantruckcheck.app" target="_blank" style="background-color: #00C853; color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;">
+        OPEN CARB APP &rarr;
+    </a>
+</div>
+    </textarea>
+
+</body>
+</html>
