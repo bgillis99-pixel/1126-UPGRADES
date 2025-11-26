@@ -42,11 +42,11 @@ const App: React.FC = () => {
   // Full Screen QR for Field Sharing
   const [fullScreenQR, setFullScreenQR] = useState(false);
 
-  // HARDCODED PRODUCTION URL FOR PROFESSIONAL SHARING
-  const shareUrl = 'https://carbcleantruckcheck.app/';
+  // Use dynamic origin to ensure the share link matches the current Vercel deployment or domain
+  const shareUrl = typeof window !== 'undefined' ? window.location.origin : 'https://carbcleantruckcheck.app/';
   
   const shareTitle = "Mobile Carb Check";
-  const shareText = "Keep your fleet compliant. Check heavy-duty diesel compliance instantly and find certified smoke testers without the hotline wait.";
+  const shareText = "Keep your fleet compliant. Check heavy-duty diesel compliance instantly and find certified smoke testers.";
   const shareBody = `${shareText} Download the app here: ${shareUrl}`;
 
   useEffect(() => {
