@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 interface Props {
@@ -26,21 +25,15 @@ const TesterLocator: React.FC<Props> = ({ initialZip, onBack }) => {
   }, [initialZip]);
 
   const constructMessage = () => {
-    // Array defined without trailing commas to ensure compatibility
-    const parts = [
-      "TESTING REQUEST",
-      "---------------",
-      `Name: ${name}`,
-      `Phone: ${phone}`,
-      `Zip: ${formZip}`,
-      `Vehicle: ${vehicleType}`,
-      `Requested Date: ${date} ${time ? '@ ' + time : ''}`,
-      "",
-      `Notes: ${notes}`,
-      "",
-      agreeToApp ? "[x] Please text me a link to the Mobile CARB App." : "[] No app link."
-    ];
-    return parts.join("\n").trim();
+    let msg = "TESTING REQUEST\n---------------\n";
+    msg += `Name: ${name}\n`;
+    msg += `Phone: ${phone}\n`;
+    msg += `Zip: ${formZip}\n`;
+    msg += `Vehicle: ${vehicleType}\n`;
+    msg += `Requested Date: ${date} ${time ? '@ ' + time : ''}\n\n`;
+    msg += `Notes: ${notes}\n\n`;
+    msg += agreeToApp ? "[x] Please text me a link to the Mobile CARB App." : "[] No app link.";
+    return msg;
   };
 
   const handleEmail = (e: React.FormEvent) => {
