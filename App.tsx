@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import VinChecker from './components/VinChecker';
 import ChatAssistant from './components/ChatAssistant';
@@ -5,6 +6,7 @@ import MediaTools from './components/MediaTools';
 import ProfileView from './components/ProfileView';
 import AdminView from './components/AdminView';
 import TesterLocator from './components/TesterLocator';
+import EducationCenter from './components/EducationCenter';
 import { AppView, User, HistoryItem } from './types';
 
 const USERS_KEY = 'vin_diesel_users';
@@ -194,7 +196,7 @@ const App: React.FC = () => {
       {currentView !== AppView.TESTER_LOCATOR && (
         <header className="bg-white pt-3 pb-3 px-4 text-center shadow-sm sticky top-0 z-20 border-b-2 border-[#15803d] flex justify-between items-center">
             
-            <div className="flex flex-col items-start leading-none select-none">
+            <div className="flex flex-col items-start leading-none select-none" onClick={() => setCurrentView(AppView.HOME)}>
                 <span className="text-[#003366] font-black text-2xl tracking-tighter">MOBILE</span>
                 <span className="text-[#15803d] font-black text-2xl tracking-tighter -mt-1">CARB</span>
                 <div className="flex items-center gap-1 mt-0.5">
@@ -332,6 +334,7 @@ const App: React.FC = () => {
             />
         )}
         {currentView === AppView.ASSISTANT && <ChatAssistant />}
+        {currentView === AppView.EDUCATION && <EducationCenter />}
         {currentView === AppView.ANALYZE && <MediaTools />}
         {currentView === AppView.PROFILE && (
             <ProfileView 
@@ -375,45 +378,55 @@ const App: React.FC = () => {
       )}
 
       {currentView !== AppView.TESTER_LOCATOR && (
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-[#003366] pb-safe pt-2 px-6 flex justify-between items-end z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] h-[80px]">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-[#003366] pb-safe pt-2 px-4 flex justify-between items-end z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] h-[80px]">
         <button 
           onClick={() => setCurrentView(AppView.HOME)}
-          className={`flex flex-col items-center pb-4 w-16 transition-transform active:scale-90 duration-150 ${currentView === AppView.HOME ? '-translate-y-2' : ''}`}
+          className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.HOME ? '-translate-y-2' : ''}`}
         >
           <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.HOME ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           </div>
-          <span className={`text-[10px] font-bold tracking-widest ${currentView === AppView.HOME ? 'text-[#15803d]' : 'text-gray-400'}`}>CHECK</span>
+          <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.HOME ? 'text-[#15803d]' : 'text-gray-400'}`}>CHECK</span>
         </button>
 
         <button 
           onClick={() => setCurrentView(AppView.ASSISTANT)}
-          className={`flex flex-col items-center pb-4 w-16 transition-transform active:scale-90 duration-150 ${currentView === AppView.ASSISTANT ? '-translate-y-2' : ''}`}
+          className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.ASSISTANT ? '-translate-y-2' : ''}`}
         >
            <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.ASSISTANT ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
           </div>
-          <span className={`text-[10px] font-bold tracking-widest ${currentView === AppView.ASSISTANT ? 'text-[#15803d]' : 'text-gray-400'}`}>CHAT</span>
+          <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.ASSISTANT ? 'text-[#15803d]' : 'text-gray-400'}`}>CHAT</span>
+        </button>
+
+        <button 
+          onClick={() => setCurrentView(AppView.EDUCATION)}
+          className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.EDUCATION ? '-translate-y-2' : ''}`}
+        >
+           <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.EDUCATION ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+          </div>
+          <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.EDUCATION ? 'text-[#15803d]' : 'text-gray-400'}`}>LEARN</span>
         </button>
 
         <button 
           onClick={() => setCurrentView(AppView.ANALYZE)}
-          className={`flex flex-col items-center pb-4 w-16 transition-transform active:scale-90 duration-150 ${currentView === AppView.ANALYZE ? '-translate-y-2' : ''}`}
+          className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.ANALYZE ? '-translate-y-2' : ''}`}
         >
            <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.ANALYZE ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
           </div>
-          <span className={`text-[10px] font-bold tracking-widest ${currentView === AppView.ANALYZE ? 'text-[#15803d]' : 'text-gray-400'}`}>TOOLS</span>
+          <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.ANALYZE ? 'text-[#15803d]' : 'text-gray-400'}`}>TOOLS</span>
         </button>
 
         <button 
           onClick={() => setCurrentView(AppView.PROFILE)}
-          className={`flex flex-col items-center pb-4 w-16 transition-transform active:scale-90 duration-150 ${currentView === AppView.PROFILE ? '-translate-y-2' : ''}`}
+          className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.PROFILE ? '-translate-y-2' : ''}`}
         >
            <div className={`p-2 rounded-full mb-1 transition-colors ${currentView === AppView.PROFILE ? 'bg-[#15803d] text-white' : 'text-[#003366]'}`}>
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
           </div>
-          <span className={`text-[10px] font-bold tracking-widest ${currentView === AppView.PROFILE ? 'text-[#15803d]' : 'text-gray-400'}`}>PROFILE</span>
+          <span className={`text-[9px] font-bold tracking-widest ${currentView === AppView.PROFILE ? 'text-[#15803d]' : 'text-gray-400'}`}>PROFILE</span>
         </button>
       </nav>
       )}

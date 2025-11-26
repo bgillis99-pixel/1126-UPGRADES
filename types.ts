@@ -1,3 +1,4 @@
+
 export enum AppView {
   HOME = 'HOME',
   ASSISTANT = 'ASSISTANT',
@@ -5,7 +6,8 @@ export enum AppView {
   TOOLS = 'TOOLS',
   PROFILE = 'PROFILE',
   ADMIN = 'ADMIN',
-  TESTER_LOCATOR = 'TESTER_LOCATOR'
+  TESTER_LOCATOR = 'TESTER_LOCATOR',
+  EDUCATION = 'EDUCATION'
 }
 
 export interface Message {
