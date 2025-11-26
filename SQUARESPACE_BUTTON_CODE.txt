@@ -7,7 +7,7 @@
 -->
 
 <div align="center" style="margin: 30px 0; text-align: center;">
-  <a href="https://carbcleantruckcheck.app" target="_blank" rel="noopener noreferrer" style="
+  <a href="https://carbcleantruckcheck.app?utm_source=website&utm_medium=button&utm_campaign=carb_app" target="_blank" rel="noopener noreferrer" style="
     background-color: #00C853; 
     color: #ffffff !important; 
     font-family: 'Helvetica Neue', Arial, sans-serif; 

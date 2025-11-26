@@ -36,7 +36,12 @@ const ChatAssistant: React.FC = () => {
         }
       }
 
-      const history = messages.map(m => ({ role: m.role, parts: [{ text: m.text }] }));
+      // CRITICAL FIX: The API expects the conversation to start with a 'user' turn.
+      // We must filter out the 'init' model message from the history sent to the API.
+      const history = messages
+        .filter(m => m.id !== 'init')
+        .map(m => ({ role: m.role, parts: [{ text: m.text }] }));
+
       const response = await sendMessage(userMsg.text, mode, history, location);
 
       const botMsg: Message = {
@@ -49,7 +54,8 @@ const ChatAssistant: React.FC = () => {
       };
       setMessages(prev => [...prev, botMsg]);
     } catch (error) {
-      setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: "Sorry, I encountered an error connecting to headquarters.", timestamp: Date.now() }]);
+      console.error("Chat Error:", error);
+      setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: "Sorry, I encountered an error connecting to headquarters. Please try again later.", timestamp: Date.now() }]);
     } finally {
       setLoading(false);
     }
