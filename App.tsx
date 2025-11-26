@@ -43,7 +43,7 @@ const App: React.FC = () => {
   const [fullScreenQR, setFullScreenQR] = useState(false);
 
   // HARDCODED PRODUCTION URL FOR PROFESSIONAL SHARING
-  const shareUrl = 'https://1126-upgrades-git-main-carbcleantruckcheckapp.vercel.app/';
+  const shareUrl = 'https://carbcleantruckcheck.app/';
   
   const shareTitle = "Mobile Carb Check";
   const shareText = "Keep your fleet compliant. Check heavy-duty diesel compliance instantly and find certified smoke testers without the hotline wait.";
