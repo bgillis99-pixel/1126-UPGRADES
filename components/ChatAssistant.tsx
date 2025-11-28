@@ -38,6 +38,7 @@ const ChatAssistant: React.FC = () => {
 
       // CRITICAL FIX: The API expects the conversation to start with a 'user' turn.
       // We must filter out the 'init' model message from the history sent to the API.
+      // Also ensures we only send role/text parts, stripping UI-only fields like 'id' or 'timestamp'.
       const history = messages
         .filter(m => m.id !== 'init')
         .map(m => ({ role: m.role, parts: [{ text: m.text }] }));
@@ -55,7 +56,13 @@ const ChatAssistant: React.FC = () => {
       setMessages(prev => [...prev, botMsg]);
     } catch (error) {
       console.error("Chat Error:", error);
-      setMessages(prev => [...prev, { id: Date.now().toString(), role: 'model', text: "Sorry, I encountered an error connecting to headquarters. Please try again later.", timestamp: Date.now() }]);
+      // Display the specific error message requested
+      setMessages(prev => [...prev, { 
+        id: Date.now().toString(), 
+        role: 'model', 
+        text: "Sorry, I encountered an error connecting to headquarters. Please try again later.", 
+        timestamp: Date.now() 
+      }]);
     } finally {
       setLoading(false);
     }

@@ -7,7 +7,8 @@ export enum AppView {
   PROFILE = 'PROFILE',
   ADMIN = 'ADMIN',
   TESTER_LOCATOR = 'TESTER_LOCATOR',
-  EDUCATION = 'EDUCATION'
+  EDUCATION = 'EDUCATION',
+  TESTER_DASHBOARD = 'TESTER_DASHBOARD'
 }
 
 export interface Message {

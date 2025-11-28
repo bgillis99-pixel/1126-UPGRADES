@@ -7,6 +7,7 @@ import ProfileView from './components/ProfileView';
 import AdminView from './components/AdminView';
 import TesterLocator from './components/TesterLocator';
 import EducationCenter from './components/EducationCenter';
+import TesterDashboard from './components/TesterDashboard';
 import { AppView, User, HistoryItem } from './types';
 
 const USERS_KEY = 'vin_diesel_users';
@@ -42,8 +43,8 @@ const App: React.FC = () => {
   // Full Screen QR for Field Sharing
   const [fullScreenQR, setFullScreenQR] = useState(false);
 
-  // Use dynamic origin to ensure the share link matches the current Vercel deployment or domain
-  const shareUrl = typeof window !== 'undefined' ? window.location.origin : 'https://carbcleantruckcheck.app/';
+  // Always use the production URL for sharing, regardless of where the app is currently running (e.g. localhost or vercel preview)
+  const shareUrl = 'https://carbcleantruckcheck.app/';
   
   const shareTitle = "Mobile Carb Check";
   const shareText = "Keep your fleet compliant. Check heavy-duty diesel compliance instantly and find certified smoke testers.";
@@ -434,10 +435,12 @@ const App: React.FC = () => {
                 onRegister={handleRegister} 
                 onLogout={handleLogout}
                 onAdminAccess={() => setCurrentView(AppView.ADMIN)}
+                onTesterAccess={() => setCurrentView(AppView.TESTER_DASHBOARD)}
                 isOnline={isOnline}
             />
         )}
         {currentView === AppView.ADMIN && <AdminView />}
+        {currentView === AppView.TESTER_DASHBOARD && <TesterDashboard />}
       </main>
 
       <div className="pb-24 text-center text-xs text-gray-400 space-y-1">

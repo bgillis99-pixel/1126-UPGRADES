@@ -7,10 +7,11 @@ interface Props {
   onRegister: (email: string) => void;
   onLogout: () => void;
   onAdminAccess?: () => void;
+  onTesterAccess?: () => void;
   isOnline?: boolean;
 }
 
-const ProfileView: React.FC<Props> = ({ user, onLogin, onRegister, onLogout, onAdminAccess, isOnline = true }) => {
+const ProfileView: React.FC<Props> = ({ user, onLogin, onRegister, onLogout, onAdminAccess, onTesterAccess, isOnline = true }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,9 +29,11 @@ const ProfileView: React.FC<Props> = ({ user, onLogin, onRegister, onLogout, onA
   };
 
   const handlePartnerAccess = () => {
-      const code = prompt("Enter Partner Access Code:");
+      const code = prompt("Enter Access Code:");
       if (code === '1225') {
           onAdminAccess?.();
+      } else if (code === 'TEST' || code === 'test') {
+          onTesterAccess?.();
       } else if (code) {
           alert("Access Denied");
       }
@@ -78,8 +81,12 @@ const ProfileView: React.FC<Props> = ({ user, onLogin, onRegister, onLogout, onA
         <div className="mt-4 text-center">
           <button onClick={() => setIsRegistering(!isRegistering)} className="text-[#15803d] text-sm font-bold hover:underline">{isRegistering ? 'Already have an account? Log In' : 'Need an account? Sign Up'}</button>
         </div>
-        <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-             <button onClick={handlePartnerAccess} className="text-xs text-gray-300 hover:text-gray-500">Partner Login</button>
+        <div className="mt-8 pt-6 border-t border-gray-100 text-center flex flex-col gap-2">
+             <p className="text-xs text-gray-400">Are you a Certified Tester?</p>
+             <button onClick={handlePartnerAccess} className="text-xs font-bold text-[#003366] bg-gray-100 py-2 px-4 rounded-full mx-auto hover:bg-gray-200">
+                 Tester / Admin Login
+             </button>
+             <p className="text-[10px] text-gray-400 mt-1">Use code: <strong>TEST</strong> for demo</p>
         </div>
       </div>
     );
@@ -131,6 +138,12 @@ const ProfileView: React.FC<Props> = ({ user, onLogin, onRegister, onLogout, onA
                 ))
             )}
         </div>
+      </div>
+      
+      <div className="mt-8 text-center">
+         <button onClick={handlePartnerAccess} className="text-xs text-gray-400 hover:text-[#003366] underline">
+             Tester / Partner Access
+         </button>
       </div>
     </div>
   );
