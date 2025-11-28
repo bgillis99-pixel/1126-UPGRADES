@@ -16,13 +16,13 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname), // Use current directory as root
-      },
+        '@': path.resolve(__dirname) // Use current directory as root
+      }
     },
     define: {
       // This is critical for Vercel. It grabs the API_KEY from the server environment
       // and passes it to the frontend code securely.
-      'process.env.API_KEY': JSON.stringify(process.env.API_KEY || env.API_KEY)
+      'process.env.API_KEY': JSON.stringify(process.env.API_KEY || env.API_KEY || '')
     },
     build: {
       outDir: 'dist',

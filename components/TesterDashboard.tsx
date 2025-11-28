@@ -52,9 +52,10 @@ const TesterDashboard: React.FC = () => {
 
   const setAllMonitors = (state: boolean) => {
       setMonitors(prev => {
-          const keys = Object.keys(prev) as Array<keyof MonitorState>;
           const newState = { ...prev };
-          keys.forEach(k => { newState[k] = state; });
+          (Object.keys(newState) as Array<keyof MonitorState>).forEach(k => {
+             newState[k] = state;
+          });
           return newState;
       });
   };
