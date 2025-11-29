@@ -14,6 +14,8 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    // CRITICAL FOR APP STORE: This ensures assets load via file:// protocol
+    base: './',
     resolve: {
       alias: {
         '@': path.resolve(__dirname) // Use current directory as root

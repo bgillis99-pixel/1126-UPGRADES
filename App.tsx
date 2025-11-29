@@ -234,7 +234,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f8f9fa] font-sans text-[#003366]">
+    <div className="min-h-screen flex flex-col bg-[#f8f9fa] font-sans text-[#003366] pt-[env(safe-area-inset-top)]">
       <Analytics />
       {!isOnline && (
         <div className="bg-gray-800 text-white text-xs text-center py-1 font-bold tracking-wider">
@@ -256,12 +256,28 @@ const App: React.FC = () => {
       {currentView !== AppView.TESTER_LOCATOR && (
         <header className="bg-white pt-3 pb-3 px-4 text-center shadow-sm sticky top-0 z-20 border-b-2 border-[#15803d] flex justify-between items-center">
             
-            <div className="flex flex-col items-start leading-none select-none" onClick={() => setCurrentView(AppView.HOME)}>
-                <span className="text-[#003366] font-black text-2xl tracking-tighter">MOBILE</span>
-                <span className="text-[#15803d] font-black text-2xl tracking-tighter -mt-1">CARB</span>
-                <div className="flex items-center gap-1 mt-0.5">
-                    <div className="h-[2px] w-3 bg-[#15803d]"></div>
-                    <span className="text-[#003366] font-bold text-[10px] tracking-[0.2em]">TESTING CA</span>
+            <div className="flex items-center gap-3 leading-none select-none cursor-pointer" onClick={() => setCurrentView(AppView.HOME)}>
+                {/* NEW LOGO IMPLEMENTATION */}
+                <div className="h-12 w-12 relative">
+                  <img 
+                    src="/logo.png" 
+                    alt="CARB Check Logo" 
+                    className="h-full w-full object-contain drop-shadow-md hover:scale-105 transition-transform"
+                    onError={(e) => {
+                      // Fallback if image isn't loaded yet
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }} 
+                  />
+                  {/* Fallback Text if image fails */}
+                  <div className="hidden h-full w-full bg-[#15803d] rounded-full flex items-center justify-center text-white font-black text-xl">
+                    C
+                  </div>
+                </div>
+                
+                <div className="flex flex-col items-start">
+                    <span className="text-[#003366] font-black text-xl tracking-tight">MOBILE CARB</span>
+                    <span className="text-[#15803d] font-bold text-[10px] tracking-[0.2em] uppercase">Compliance App</span>
                 </div>
             </div>
 
@@ -270,7 +286,7 @@ const App: React.FC = () => {
                 className="bg-[#15803d] text-white px-4 py-2 rounded-full font-bold text-sm shadow-md hover:bg-[#166534] active:scale-95 active:bg-[#14532d] transition-all flex items-center gap-2"
             >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
-                SHARE APP
+                SHARE
             </button>
         </header>
       )}
@@ -452,7 +468,7 @@ const App: React.FC = () => {
       </div>
 
       {showPwaBanner && deferredPrompt && !isIOS && (
-        <div className="fixed bottom-[80px] left-0 right-0 bg-[#003366] text-white p-4 z-40 flex justify-between items-center shadow-lg animate-in slide-in-from-bottom border-t-4 border-[#15803d]">
+        <div className="fixed bottom-[80px] left-0 right-0 bg-[#003366] text-white p-4 z-40 flex justify-between items-center shadow-lg animate-in slide-in-from-bottom border-t-4 border-[#15803d] pb-[calc(1rem+env(safe-area-inset-bottom))]">
             <div className="flex items-center gap-3">
                 <div className="bg-white p-2 rounded-lg">
                      <svg className="w-6 h-6 text-[#003366]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
@@ -472,7 +488,7 @@ const App: React.FC = () => {
       )}
 
       {currentView !== AppView.TESTER_LOCATOR && (
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-[#003366] pb-safe pt-2 px-4 flex justify-between items-end z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] h-[80px]">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-[#003366] pb-[calc(1rem+env(safe-area-inset-bottom))] pt-2 px-4 flex justify-between items-end z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] h-[calc(80px+env(safe-area-inset-bottom))]">
         <button 
           onClick={() => setCurrentView(AppView.HOME)}
           className={`flex flex-col items-center pb-4 w-14 transition-transform active:scale-90 duration-150 ${currentView === AppView.HOME ? '-translate-y-2' : ''}`}
